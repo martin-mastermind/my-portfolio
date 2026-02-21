@@ -19,19 +19,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: '20'
-          cache: 'npm'
+          bun-version: latest
 
       - name: Install
-        run: npm ci
+        run: bun install --frozen-lockfile
 
       - name: Generate
         env:
           NUXT_APP_BASE_URL: '/my-portfolio/'
-        run: npm run generate
+        run: bun run generate
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
