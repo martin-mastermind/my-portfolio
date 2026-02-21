@@ -1,10 +1,35 @@
 <script setup lang="ts">
 import { projects } from '~/data/project'
+const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp()
+const reducedMotion = useReducedMotion()
+const sectionRef = ref<HTMLElement | null>(null)
+const titleRef = ref<HTMLElement | null>(null)
+const cardsRef = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+  if (reducedMotion.value || !sectionRef.value || !titleRef.value || !cardsRef.value) return
+  const cards = cardsRef.value.querySelectorAll('.project-card')
+  gsap.fromTo(titleRef.value, { y: 20, opacity: 0 }, {
+    y: 0,
+    opacity: 1,
+    duration: 0.5,
+    scrollTrigger: { trigger: sectionRef.value, start: 'top 85%', toggleActions: 'play none none none' },
+  })
+  gsap.fromTo(cards, { y: 32, opacity: 0 }, {
+    y: 0,
+    opacity: 1,
+    duration: 0.5,
+    stagger: 0.1,
+    ease: 'power2.out',
+    scrollTrigger: { trigger: cardsRef.value, start: 'top 88%', toggleActions: 'play none none none' },
+  })
+})
 </script>
 
 <template>
-  <section id="project" class="section section-project">
-    <h2 class="section__title">Projects</h2>
+  <section ref="sectionRef" id="project" class="section section-project">
+    <h2 ref="titleRef" class="section__title">Projects</h2>
+    <div ref="cardsRef" class="section-project__cards">
     <article
       v-for="(project, i) in projects"
       :key="i"
@@ -29,5 +54,6 @@ import { projects } from '~/data/project'
         Open
       </AppLink>
     </article>
+    </div>
   </section>
 </template>
