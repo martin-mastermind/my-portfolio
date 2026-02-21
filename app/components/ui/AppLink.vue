@@ -1,42 +1,42 @@
 <script setup lang="ts">
 const props = defineProps<{
   to: string
-  external?: boolean
 }>()
 
-const isAnchor = computed(() => props.to.startsWith('#'))
+const route = useRoute()
+const resolvedTo = computed(() => {
+  if (props.to.startsWith('#')) {
+    return { path: route.path, hash: props.to }
+  }
+  return props.to
+})
 
-function handleAnchorClick(e: MouseEvent) {
-  if (typeof window === 'undefined' || !props.to.startsWith('#')) return
-  e.preventDefault()
-  const el = document.querySelector(props.to)
-  el?.scrollIntoView({ behavior: 'smooth' })
+function handleClick(e: MouseEvent) {
+  if (props.to.startsWith('#')) {
+    e.preventDefault()
+    const el = document.querySelector(props.to)
+    el?.scrollIntoView({ behavior: 'smooth' })
+  }
 }
 </script>
 
 <template>
-  <a
-    v-if="props.external"
-    :href="props.to"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="app-link"
-  >
-    <slot />
-  </a>
-  <a
-    v-else-if="isAnchor"
-    :href="props.to"
-    class="app-link"
-    @click="handleAnchorClick"
-  >
-    <slot />
-  </a>
   <NuxtLink
-    v-else
-    :to="props.to"
+    :to="resolvedTo"
     class="app-link"
+    @click="handleClick"
   >
     <slot />
   </NuxtLink>
 </template>
+
+<style scoped>
+.app-link {
+  color: var(--color-accent);
+  cursor: pointer;
+}
+
+.app-link:hover {
+  text-decoration: none;
+}
+</style>

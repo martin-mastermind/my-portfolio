@@ -1,11 +1,10 @@
 <template>
   <main>
     <SectionHero />
-    <SectionDivider />
     <SectionExperience />
-    <SectionDivider />
+    <UiSectionDivider />
     <SectionProject />
-    <SectionDivider />
+    <UiSectionDivider />
     <SectionContact />
   </main>
 </template>

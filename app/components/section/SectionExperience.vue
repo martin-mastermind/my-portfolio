@@ -12,15 +12,16 @@ onMounted(() => {
   gsap.fromTo(titleRef.value, { y: 20, opacity: 0 }, {
     y: 0,
     opacity: 1,
-    duration: 0.5,
+    duration: 0.45,
+    ease: 'back.out(1.2)',
     scrollTrigger: { trigger: sectionRef.value, start: 'top 85%', toggleActions: 'play none none none' },
   })
-  gsap.fromTo(cards, { y: 32, opacity: 0 }, {
+  gsap.fromTo(cards, { y: 28, opacity: 0 }, {
     y: 0,
     opacity: 1,
-    duration: 0.5,
-    stagger: 0.1,
-    ease: 'power2.out',
+    duration: 0.45,
+    stagger: 0.07,
+    ease: 'back.out(1.2)',
     scrollTrigger: { trigger: gridRef.value, start: 'top 88%', toggleActions: 'play none none none' },
   })
 })
@@ -54,3 +55,64 @@ onMounted(() => {
     </div>
   </section>
 </template>
+
+<style scoped>
+.section-experience__grid {
+  display: grid;
+  gap: var(--space-block);
+}
+
+.experience-card {
+  padding: 1.25rem var(--space-block);
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--duration-fast) var(--ease-out-snappy), box-shadow var(--duration-normal) var(--ease-bounce), transform var(--duration-normal) var(--ease-bounce);
+}
+
+.experience-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-3px);
+}
+
+.experience-card__header {
+  margin-bottom: 1rem;
+}
+
+.experience-card__company {
+  margin: 0 0 0.25rem;
+  font-size: 1.125rem;
+}
+
+.experience-card__role,
+.experience-card__period {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.experience-card__points {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.experience-card__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tech-tag {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  background: var(--color-tech-bg);
+  border-radius: 9999px;
+  border: 1px solid var(--color-border);
+}
+</style>
