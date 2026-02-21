@@ -1,19 +1,20 @@
 <script setup lang="ts">
 const appConfig = useAppConfig();
 const tagline = appConfig.site?.tagline ?? "Go + Nuxt";
-const { $gsap: gsap } = useNuxtApp();
+const { $getGsap: getGsap } = useNuxtApp();
 const reducedMotion = useReducedMotion();
 
 const heroTitle = ref<HTMLElement | null>(null);
 const heroLead = ref<HTMLElement | null>(null);
 const heroCta = ref<HTMLElement | null>(null);
 
-onMounted(() => {
+onMounted(async () => {
   if (reducedMotion.value) return;
   const els = [heroTitle.value, heroLead.value, heroCta.value].filter(
     Boolean,
   ) as HTMLElement[];
   if (els.length === 0) return;
+  const { gsap } = await getGsap();
   gsap.fromTo(
     els,
     { y: 24, opacity: 0 },

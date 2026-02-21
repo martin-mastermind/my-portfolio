@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { projects } from '~/data/project'
-const { $gsap: gsap } = useNuxtApp()
+const { $getGsap: getGsap } = useNuxtApp()
 const reducedMotion = useReducedMotion()
 const sectionRef = ref<HTMLElement | null>(null)
 const titleRef = ref<HTMLElement | null>(null)
 const cardsRef = ref<HTMLElement | null>(null)
 
-onMounted(() => {
+onMounted(async () => {
   if (reducedMotion.value || !sectionRef.value || !titleRef.value || !cardsRef.value) return
+  const { gsap } = await getGsap()
   const cards = cardsRef.value.querySelectorAll('.project-card')
   gsap.fromTo(titleRef.value, { y: 20, opacity: 0 }, {
     y: 0,

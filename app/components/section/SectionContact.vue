@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
 const site = appConfig.site ?? {}
-const { $gsap: gsap } = useNuxtApp()
+const { $getGsap: getGsap } = useNuxtApp()
 const reducedMotion = useReducedMotion()
 const sectionRef = ref<HTMLElement | null>(null)
 const titleRef = ref<HTMLElement | null>(null)
@@ -14,8 +14,9 @@ const channels = computed(() => [
   site.github && { label: 'GitHub', href: site.github, icon: 'simple-icons:github' },
 ].filter(Boolean) as { label: string; href: string; icon: string }[])
 
-onMounted(() => {
+onMounted(async () => {
   if (reducedMotion.value || !sectionRef.value || !titleRef.value || !contentRef.value) return
+  const { gsap } = await getGsap()
   gsap.fromTo(titleRef.value, { y: 20, opacity: 0 }, {
     y: 0,
     opacity: 1,

@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   srcDir: 'app',
   css: ['~/assets/main.css'],
-  modules: ['@nuxt/icon', '@nuxtjs/color-mode', '@nuxt/fonts'],
+  modules: ['@nuxt/icon', '@nuxtjs/color-mode', '@nuxt/fonts', '@nuxtjs/critters'],
   colorMode: {
     classSuffix: '',
   },
@@ -22,10 +22,15 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'en' },
       meta: [
         { name: 'description', content: 'Martin — Senior Fullstack Engineer. Go + Nuxt. Performance & Scalability Expert.' },
+        { name: 'theme-color', content: '#fafafa', media: '(prefers-color-scheme: light)' },
+        { name: 'theme-color', content: '#09090b', media: '(prefers-color-scheme: dark)' },
       ],
       viewport: 'width=device-width, initial-scale=1',
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: `${baseURL}favicon.svg` },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'dns-prefetch', href: 'https://formspree.io' },
       ],
     },
   },

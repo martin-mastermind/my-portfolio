@@ -1,12 +1,23 @@
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+let gsapPromise: Promise<{
+  gsap: (typeof import("gsap"))["default"];
+  ScrollTrigger: (typeof import("gsap/ScrollTrigger"))["default"];
+}> | null = null;
 
-export default defineNuxtPlugin(() => {
-  gsap.registerPlugin(ScrollTrigger)
-  return {
-    provide: {
-      gsap,
-      ScrollTrigger,
-    },
+function getGsap() {
+  if (!gsapPromise) {
+    gsapPromise = Promise.all([
+      import("gsap"),
+      import("gsap/ScrollTrigger"),
+    ]).then(([g, st]) => {
+      g.default.registerPlugin(st.default);
+      return { gsap: g.default, ScrollTrigger: st.default };
+    });
   }
-})
+  return gsapPromise;
+}
+
+export default defineNuxtPlugin(() => ({
+  provide: {
+    getGsap,
+  },
+}));
