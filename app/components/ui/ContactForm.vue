@@ -12,15 +12,15 @@ const endpoint = computed(() => appConfig.formspree?.endpoint ?? 'https://formsp
     <input type="hidden" name="_subject" value="Portfolio: new message">
     <label class="contact-form__label">
       Name
-      <input type="text" name="name" required class="contact-form__input">
+      <input type="text" name="name" autocomplete="name" required class="contact-form__input">
     </label>
     <label class="contact-form__label">
       Email
-      <input type="email" name="email" required class="contact-form__input">
+      <input type="email" name="email" autocomplete="email" required class="contact-form__input">
     </label>
     <label class="contact-form__label">
       Message
-      <textarea name="message" required rows="4" class="contact-form__input contact-form__textarea" />
+      <textarea name="message" autocomplete="off" required rows="4" class="contact-form__input contact-form__textarea" />
     </label>
     <button type="submit" class="contact-form__submit">
       Send
