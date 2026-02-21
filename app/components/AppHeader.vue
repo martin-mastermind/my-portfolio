@@ -40,7 +40,7 @@ function toggleTheme() {
       <button
         type="button"
         class="app-header__theme-btn"
-        aria-label="Переключить тему"
+        aria-label="Toggle theme"
         @click="toggleTheme"
       >
         <Icon v-if="colorMode.value === 'dark'" name="heroicons:sun-solid" class="app-header__theme-icon" />

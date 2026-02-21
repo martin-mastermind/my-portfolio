@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { projects } from '~/data/project'
-const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp()
+const { $gsap: gsap } = useNuxtApp()
 const reducedMotion = useReducedMotion()
 const sectionRef = ref<HTMLElement | null>(null)
 const titleRef = ref<HTMLElement | null>(null)
@@ -30,30 +30,30 @@ onMounted(() => {
   <section ref="sectionRef" id="project" class="section section-project">
     <h2 ref="titleRef" class="section__title">Projects</h2>
     <div ref="cardsRef" class="section-project__cards">
-    <article
-      v-for="(project, i) in projects"
-      :key="i"
-      class="project-card"
-    >
-      <h3 class="project-card__title">{{ project.title }}</h3>
-      <p class="project-card__description">{{ project.description }}</p>
-      <p v-if="project.metric" class="project-card__metric">
-        {{ project.metric }}
-      </p>
-      <ul class="project-card__stack">
-        <li v-for="(s, j) in project.stack" :key="j" class="tech-tag">
-          {{ s }}
-        </li>
-      </ul>
-      <AppLink
-        v-if="project.link"
-        :to="project.link"
-        external
-        class="project-card__link"
+      <article
+        v-for="(project, i) in projects"
+        :key="i"
+        class="project-card"
       >
-        Open
-      </AppLink>
-    </article>
+        <h3 class="project-card__title">{{ project.title }}</h3>
+        <p class="project-card__description">{{ project.description }}</p>
+        <p v-if="project.metric" class="project-card__metric">
+          {{ project.metric }}
+        </p>
+        <ul class="project-card__stack">
+          <li v-for="(s, j) in project.stack" :key="j" class="tech-tag">
+            {{ s }}
+          </li>
+        </ul>
+        <AppLink
+          v-if="project.link"
+          :to="project.link"
+          external
+          class="project-card__link"
+        >
+          Open
+        </AppLink>
+      </article>
     </div>
   </section>
 </template>

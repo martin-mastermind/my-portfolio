@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
-const endpoint = appConfig.formspree?.endpoint ?? 'https://formspree.io/f/XXXX'
+const endpoint = computed(() => appConfig.formspree?.endpoint ?? 'https://formspree.io/f/XXXX')
 </script>
 
 <template>
@@ -8,6 +8,7 @@ const endpoint = appConfig.formspree?.endpoint ?? 'https://formspree.io/f/XXXX'
     :action="endpoint"
     method="POST"
     class="contact-form"
+    target="_blank"
   >
     <input type="hidden" name="_subject" value="Portfolio: new message">
     <label class="contact-form__label">

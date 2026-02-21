@@ -1,35 +1,41 @@
+/* Палитра в стиле nuxt.com / Nuxt UI (--color-green-400: #00DC82, green-500: #00C16A) */
 :root {
-  --color-bg: #f5f7f5;
-  --color-surface: #fff;
-  --color-text: #1a1a1a;
-  --color-text-muted: #666;
+  --color-bg: #fafafa;
+  --color-surface: #ffffff;
+  --color-text: #18181b;
+  --color-text-muted: #71717a;
   --color-accent: #00DC82;
-  --color-accent-hover: #00c274;
-  --color-on-accent: #0f0f0f;
-  --color-border: #eee;
-  --color-tech-bg: #e8ebe8;
-  --color-input-border: #ddd;
+  --color-accent-hover: #00C16A;
+  --color-on-accent: #18181b;
+  --color-border: #e4e4e7;
+  --color-tech-bg: #f4f4f5;
+  --color-input-border: #d4d4d8;
   --font-sans: 'Roboto', sans-serif;
   --font-mono: ui-monospace, monospace;
   --space-section: clamp(3rem, 8vw, 6rem);
   --space-block: 1.5rem;
   --radius: 0.5rem;
+  --radius-card: 0.75rem;
   --header-h: 3.5rem;
-  --color-bg-end: #eef2ee;
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --color-bg-end: #f4f4f5;
 }
 
 .dark {
-  --color-bg: #0f1412;
-  --color-surface: #1a221e;
-  --color-text: #e5e5e5;
-  --color-text-muted: #a3a3a3;
+  --color-bg: #09090b;
+  --color-surface: #18181b;
+  --color-text: #fafafa;
+  --color-text-muted: #a1a1aa;
   --color-accent: #00DC82;
   --color-accent-hover: #00e88a;
-  --color-on-accent: #0f0f0f;
-  --color-border: #2a332e;
-  --color-tech-bg: #232d28;
-  --color-input-border: #404040;
-  --color-bg-end: #1a221e;
+  --color-on-accent: #09090b;
+  --color-border: #27272a;
+  --color-tech-bg: #27272a;
+  --color-input-border: #3f3f46;
+  --color-bg-end: #18181b;
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 4px 12px rgba(0, 220, 130, 0.08);
 }
 
 html {
@@ -45,6 +51,27 @@ body {
   color: var(--color-text);
   background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-end) 100%);
   transition: background 0.35s ease, color 0.35s ease;
+  cursor: default;
+  user-select: none;
+}
+
+input,
+textarea {
+  cursor: text;
+  user-select: text;
+}
+
+a,
+button,
+.app-link,
+.section-hero__cta,
+.project-card__link,
+.section-contact__channel,
+.contact-form__submit,
+.app-header__theme-btn,
+.app-header__burger,
+.app-header__link {
+  cursor: pointer;
 }
 
 a {
@@ -181,8 +208,10 @@ a:hover {
 
 .section__title {
   margin: 0 0 var(--space-block);
-  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 3vw, 1.75rem);
   font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
 }
 
 .section.section-hero {
@@ -197,11 +226,11 @@ a:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: linear-gradient(135deg, var(--color-bg) 0%, rgba(0, 220, 130, 0.08) 50%, rgba(0, 194, 116, 0.12) 100%);
+  background: linear-gradient(135deg, var(--color-bg) 0%, rgba(0, 220, 130, 0.06) 50%, rgba(0, 193, 106, 0.1) 100%);
 }
 
 .dark .section-hero {
-  background: linear-gradient(135deg, var(--color-bg) 0%, rgba(0, 220, 130, 0.06) 40%, rgba(0, 26, 34, 1) 100%);
+  background: linear-gradient(135deg, #09090b 0%, rgba(0, 220, 130, 0.05) 40%, #18181b 100%);
 }
 
 .section-hero__inner {
@@ -234,6 +263,9 @@ a:hover {
   color: var(--color-on-accent);
   border-radius: var(--radius);
   font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
 }
 
 .section-hero__cta:hover {
@@ -248,10 +280,17 @@ a:hover {
 }
 
 .experience-card {
-  padding: var(--space-block);
+  padding: 1.25rem var(--space-block);
   background: var(--color-surface);
-  border-radius: var(--radius);
+  border-radius: var(--radius-card);
   border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.experience-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .experience-card__header {
@@ -291,13 +330,6 @@ a:hover {
   background: var(--color-tech-bg);
   border-radius: 9999px;
   border: 1px solid var(--color-border);
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
-}
-
-.tech-tag:hover {
-  border-color: var(--color-accent);
-  background: var(--color-surface);
-  transform: scale(1.02);
 }
 
 .section-project__cards {
@@ -307,10 +339,17 @@ a:hover {
 }
 
 .section-project .project-card {
-  padding: var(--space-block);
+  padding: 1.25rem var(--space-block);
   background: var(--color-surface);
-  border-radius: var(--radius);
+  border-radius: var(--radius-card);
   border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.section-project .project-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .project-card__title {
@@ -343,6 +382,7 @@ a:hover {
   border-radius: var(--radius);
   font-size: 0.9rem;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .project-card__link:hover {
@@ -353,28 +393,92 @@ a:hover {
 
 .section-contact__content {
   display: grid;
-  gap: var(--space-block);
+  gap: 2rem;
   position: relative;
   z-index: 1;
 }
 
-.section-contact__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+@media (min-width: 640px) {
+  .section-contact__content {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
 }
 
-.section-contact__links a {
-  min-height: 44px;
-  display: inline-flex;
+.section-contact__lead {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  max-width: 36rem;
+}
+
+.section-contact__channels {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .section-contact__channels {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section-contact__channel {
+  display: flex;
   align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  min-height: 56px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.section-contact__channel:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-card-hover);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.section-contact__channel-icon {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-text-muted);
+  transition: color 0.2s ease;
+}
+
+.section-contact__channel:hover .section-contact__channel-icon {
+  color: var(--color-accent);
+}
+
+.section-contact__form-wrap {
+  padding: 1.5rem;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.section-contact__form-title {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 28rem;
 }
 
 .contact-form__label {
@@ -391,6 +495,8 @@ a:hover {
   font-size: 16px;
   border: 1px solid var(--color-input-border);
   border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 .contact-form__textarea {
@@ -419,6 +525,7 @@ a:hover {
 
 .app-link {
   color: var(--color-accent);
+  cursor: pointer;
 }
 
 .app-link:hover {

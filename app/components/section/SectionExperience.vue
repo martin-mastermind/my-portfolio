@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { experience } from '~/data/experience'
-const { $gsap: gsap, $ScrollTrigger: ScrollTrigger } = useNuxtApp()
+const { $gsap: gsap } = useNuxtApp()
 const reducedMotion = useReducedMotion()
 const sectionRef = ref<HTMLElement | null>(null)
 const titleRef = ref<HTMLElement | null>(null)

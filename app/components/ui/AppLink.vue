@@ -7,7 +7,7 @@ const props = defineProps<{
 const isAnchor = computed(() => props.to.startsWith('#'))
 
 function handleAnchorClick(e: MouseEvent) {
-  if (!import.meta.client || !props.to.startsWith('#')) return
+  if (typeof window === 'undefined' || !props.to.startsWith('#')) return
   e.preventDefault()
   const el = document.querySelector(props.to)
   el?.scrollIntoView({ behavior: 'smooth' })
