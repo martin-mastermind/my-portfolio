@@ -1,29 +1,64 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
 const endpoint = computed(() => appConfig.formspree?.endpoint ?? 'https://formspree.io/f/XXXX')
+
+const pending = ref(false)
+const toast = ref<{ message: string; type: 'success' | 'error' } | null>(null)
+
+async function onSubmit(e: Event) {
+  e.preventDefault()
+  const form = e.target as HTMLFormElement
+  const fd = new FormData(form)
+  const body = Object.fromEntries(fd.entries()) as Record<string, string>
+
+  pending.value = true
+  toast.value = null
+  try {
+    await $fetch(endpoint.value, {
+      method: 'POST',
+      body,
+      headers: { Accept: 'application/json' },
+    })
+    form.reset()
+    toast.value = { message: 'Message sent.', type: 'success' }
+  } catch (err: unknown) {
+    toast.value = {
+      message: err instanceof Error ? err.message : 'Failed to send message.',
+      type: 'error',
+    }
+  } finally {
+    pending.value = false
+  }
+}
 </script>
 
 <template>
   <form
-    :action="endpoint"
-    method="POST"
     class="contact-form"
+    @submit="onSubmit"
   >
     <input type="hidden" name="_subject" value="Portfolio: new message">
     <label class="contact-form__label">
       Name
-      <input type="text" name="name" autocomplete="name" required class="contact-form__input">
+      <input type="text" name="name" autocomplete="name" required class="contact-form__input" :disabled="pending">
     </label>
     <label class="contact-form__label">
       Email
-      <input type="email" name="email" autocomplete="email" required class="contact-form__input">
+      <input type="email" name="email" autocomplete="email" required class="contact-form__input" :disabled="pending">
     </label>
     <label class="contact-form__label">
       Message
-      <textarea name="message" autocomplete="off" required rows="4" class="contact-form__input contact-form__textarea" />
+      <textarea name="message" autocomplete="off" required rows="4" class="contact-form__input contact-form__textarea" :disabled="pending" />
     </label>
-    <button type="submit" class="contact-form__submit">
-      Send
+    <UiToast
+      v-if="toast"
+      :key="toast.message + toast.type"
+      :message="toast.message"
+      :type="toast.type"
+      @close="toast = null"
+    />
+    <button type="submit" class="contact-form__submit" :disabled="pending">
+      {{ pending ? 'Sending…' : 'Send' }}
     </button>
   </form>
 </template>
