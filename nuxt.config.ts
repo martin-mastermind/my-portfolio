@@ -14,7 +14,15 @@ export default defineNuxtConfig({
   app: {
     baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
+      title: 'Martin — Senior Fullstack Engineer',
+      htmlAttrs: { lang: 'en' },
+      meta: [
+        { name: 'description', content: 'Martin — Senior Fullstack Engineer. Go + Nuxt. Performance & Scalability Expert.' },
+      ],
       viewport: 'width=device-width, initial-scale=1',
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+      ],
     },
   },
 })
