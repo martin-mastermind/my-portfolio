@@ -1,37 +1,40 @@
 :root {
-  --color-bg: #fafafa;
+  --color-bg: #f5f7f5;
   --color-surface: #fff;
   --color-text: #1a1a1a;
   --color-text-muted: #666;
-  --color-accent: #2563eb;
-  --color-accent-hover: #1d4ed8;
-  --color-on-accent: #fff;
+  --color-accent: #00DC82;
+  --color-accent-hover: #00c274;
+  --color-on-accent: #0f0f0f;
   --color-border: #eee;
-  --color-tech-bg: #f0f0f0;
+  --color-tech-bg: #e8ebe8;
   --color-input-border: #ddd;
-  --font-sans: system-ui, -apple-system, sans-serif;
+  --font-sans: 'Roboto', sans-serif;
   --font-mono: ui-monospace, monospace;
   --space-section: clamp(3rem, 8vw, 6rem);
   --space-block: 1.5rem;
   --radius: 0.5rem;
   --header-h: 3.5rem;
+  --color-bg-end: #eef2ee;
 }
 
-[data-theme="dark"] {
-  --color-bg: #0f0f0f;
-  --color-surface: #1a1a1a;
+.dark {
+  --color-bg: #0f1412;
+  --color-surface: #1a221e;
   --color-text: #e5e5e5;
   --color-text-muted: #a3a3a3;
-  --color-accent: #3b82f6;
-  --color-accent-hover: #60a5fa;
-  --color-on-accent: #fff;
-  --color-border: #2a2a2a;
-  --color-tech-bg: #262626;
+  --color-accent: #00DC82;
+  --color-accent-hover: #00e88a;
+  --color-on-accent: #0f0f0f;
+  --color-border: #2a332e;
+  --color-tech-bg: #232d28;
   --color-input-border: #404040;
+  --color-bg-end: #1a221e;
 }
 
 html {
   scroll-behavior: smooth;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 body {
@@ -40,7 +43,8 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--color-text);
-  background: var(--color-bg);
+  background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-end) 100%);
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
 a {
@@ -64,16 +68,6 @@ a:hover {
   padding: 0 var(--space-block);
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
-}
-
-.app-header__logo {
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.app-header__logo:hover {
-  text-decoration: none;
-  color: var(--color-accent);
 }
 
 .app-header__actions {
@@ -137,6 +131,10 @@ a:hover {
 }
 
 @media (max-width: 768px) {
+  .app-header__actions {
+    margin-left: auto;
+  }
+
   .app-header__burger {
     display: flex;
     min-width: 44px;
@@ -187,18 +185,33 @@ a:hover {
   font-weight: 700;
 }
 
+.section.section-hero {
+  max-width: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .section-hero {
   position: relative;
   min-height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-surface) 50%, var(--color-tech-bg) 100%);
+  background: linear-gradient(135deg, var(--color-bg) 0%, rgba(0, 220, 130, 0.08) 50%, rgba(0, 194, 116, 0.12) 100%);
+}
+
+.dark .section-hero {
+  background: linear-gradient(135deg, var(--color-bg) 0%, rgba(0, 220, 130, 0.06) 40%, rgba(0, 26, 34, 1) 100%);
 }
 
 .section-hero__inner {
   position: relative;
   z-index: 1;
+  max-width: 56rem;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 var(--space-block);
+  box-sizing: border-box;
 }
 
 .section-hero__title {
@@ -276,7 +289,15 @@ a:hover {
   font-size: 0.8rem;
   font-family: var(--font-mono);
   background: var(--color-tech-bg);
-  border-radius: 4px;
+  border-radius: 9999px;
+  border: 1px solid var(--color-border);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.tech-tag:hover {
+  border-color: var(--color-accent);
+  background: var(--color-surface);
+  transform: scale(1.02);
 }
 
 .section-project__cards {
@@ -333,6 +354,8 @@ a:hover {
 .section-contact__content {
   display: grid;
   gap: var(--space-block);
+  position: relative;
+  z-index: 1;
 }
 
 .section-contact__links {
